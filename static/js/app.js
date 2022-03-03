@@ -31,3 +31,23 @@ function buildTable(data) {
         );
       });
 };
+
+// New function to filter data based on date
+function handleClick(){
+    // grab the datetime value from the filter
+    let date = d3.select("#datetime").property("value");
+    let filteredData = tableData;
+    // check to see if a date was entered and filter the data by that date
+    if (date) {
+        // apply filter to the table data to only keep the rows where the "datetime" value matches the filter value
+        filteredData = filteredData.filter(row => row.datetime === date);
+    };
+    // Rebuild the table using the filtered data
+    // @Note: if no date was entered, then filteredData will just be the oringal Table Data
+    buildTable(filteredData);
+};
+
+d3.selectAll("#filter-btn").on("click", handleClick);
+
+buildTable(tableData);
+
